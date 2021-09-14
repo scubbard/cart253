@@ -21,10 +21,12 @@ function preload() {
 Description of setup
 */
 function setup() {
- background(200,200,200);
 
- point(50,50);
- square(10,10,20);
+ createCanvas(300,400)
+ background(200,100,100);
+ noStroke();
+ ellipse(100,100,60,80);
+
 }
 
 
