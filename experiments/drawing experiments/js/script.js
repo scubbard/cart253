@@ -21,7 +21,10 @@ function preload() {
 Description of setup
 */
 function setup() {
- background(255,100,100);
+ background(200,200,200);
+
+ point(50,50);
+ square(10,10,20);
 }
 
 
