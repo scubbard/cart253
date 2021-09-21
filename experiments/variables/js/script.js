@@ -8,10 +8,18 @@ author, and this description to match your project!
 
 "use strict";
 
-let circleSize = 100
+//let circleSize = 100
 let red = 100
 let green = 200
 let blue = 150
+
+let circle {
+  x: 0,
+  y: 200,
+  size: 100,
+  speed: 1
+
+};
 /**
 Description of preload
 */
@@ -42,8 +50,8 @@ blue = blue - 1
 //background(200,0,0);
 rectMode(CENTER);
 fill(mouseY,mouseX,0);
-circle(width/2,height/2,circleSize);
-circleSize = circleSize + 1;
-width = width - 1
+//circle(width/2,height/2,circleSize);
+//circleSize = circleSize + 1;
+//width = width - 1
 //circle(100,100,circleSize,circleSize);
 }
