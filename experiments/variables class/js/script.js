@@ -19,33 +19,17 @@ let myRect = {
   speed: 1.02,
   yAngle: 0,
 };
-/**
-Description of preload
-*/
-function preload() {
 
-}
-
-
-/**
-Description of setup
-*/
 function setup() {
 createCanvas(windowWidth,windowHeight);
 background(0);
 }
 
-
-/**
-moving the mouse changes the colour of the background and inversely the
-colour of the square
-*/
 function draw() {
 
 
 noFill(0);
 stroke(red, green, blue);
-//rectMode(CENTER);
 rect(myRect.x,myRect.y,myRect.size,myRect.size);
 
 myRect.x = myRect.x + myRect.speed;
