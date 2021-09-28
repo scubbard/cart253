@@ -158,9 +158,12 @@ fill(moverR, moverG, moverB);
 stroke(0);
 rect(mover.x,mover.y,mover.size);
 
+
 fill(fillShadeR,mouseX - mouseY,fillShadeB);
 textSize(20);
 textAlign(CENTER,CENTER);
 text('hello 253!',mover.x,mover.y);
+
+
 
 }
