@@ -9,25 +9,18 @@ author, and this description to match your project!
 "use strict";
 
 
-/**
-Description of preload
-*/
-function preload() {
-
+let mover = {
+  x: 0,
+  y: undefined,
+  size: 100,
 }
-
 
 /**
 Description of setup
 */
 function setup() {
+createCanvas(windowWidth,windowHeight)
 
-createCanvas(500,500);
-background(200);
-rectMode(CORNERS);
-stroke(255,0,0);
-noFill();
-rect(100,100,300,300);
 
 }
 
@@ -36,5 +29,9 @@ rect(100,100,300,300);
 Description of draw()
 */
 function draw() {
+mover.y = height/2
 
+rect(mover.x,mover.y,mover.size)
+
+mover.x = mover.x + 1
 }

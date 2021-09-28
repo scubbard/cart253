@@ -9,7 +9,7 @@ author, and this description to match your project!
 "use strict";
 
 //let circleSize = 100
-let red = 255;
+//let mouseX = 255;
 let green = 255;
 let blue = 255;
 let myRect = {
@@ -29,18 +29,20 @@ function draw() {
 
 
 noFill(0);
-stroke(red, green, blue);
+let mouseX = map(mouseX, 0, width, 0, 255)
+stroke(mouseX, green, blue);
 rect(myRect.x,myRect.y,myRect.size,myRect.size);
 
 myRect.x = myRect.x + myRect.speed;
 
 //constrain!
 myRect.x = constrain(myRect.x,0,windowWidth);
-red = constrain(red,100,255);
+mouseX = constrain(mouseX,100,255);
 green = constrain(green,50,255);
 blue = constrain(blue,25,255);
+
 myRect.size = myRect.size + 1;
-red = red - 0.2 ;
+//mouseX = mouseX - 0.2 ;
 green = green -0.4;
 blue = blue -0.6;
 
