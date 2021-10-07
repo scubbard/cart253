@@ -36,6 +36,8 @@ Description of setup
 */
 function setup() {
 
+  reset();
+
   firstCirc.x = width/3
   firstCirc.y = height/2
   secondCirc.x = width/3 + width/3
@@ -49,7 +51,7 @@ secondCirc.vy = random(-secondCirc.speed,secondCirc.speed);
 
 
 createCanvas(windowWidth,windowHeight);
-//reset();
+
 }
 
 
@@ -63,7 +65,7 @@ function draw() {
 
 let offScreen = circleOffScreen();
   if (offScreen) {
-  background(0);
+  reset();
   }
 
 
@@ -79,9 +81,11 @@ circle(secondCirc.x,secondCirc.y,secondCirc.size);
 
 
 function circleOffScreen() {
-  let result = (firstCirc.x > width || firstCirc.x < 0 || firstCirc.y > height ||
-      firstCirc.y < 0 || secondCirc.x > width || secondCirc.x < 0 ||
-      secondCirc.y > height || secondCirc.y < 0);
+  let result =
+    (firstCirc.x > width  || firstCirc.x < 0  ||
+    firstCirc.y > height  || firstCirc.y < 0  ||
+    secondCirc.x > width || secondCirc.x < 0  ||
+    secondCirc.y > height  || secondCirc.y < 0 );
   print(result);
   return result;
 }
@@ -90,11 +94,11 @@ function circleOffScreen() {
 function reset() {
   firstCirc.x = width/3;
   firstCirc.y = height/2;
-  firstCirc.vx = 0;
-  firstCirc.vy = 0;
+  firstCirc.vx = random(-5,5);
+  firstCirc.vy = random(-5,5);
 
   secondCirc.x = width/3 + width/3;
   secondCirc.y = height/2;
-  secondCirc.vx = 0;
-  secondCirc.vy = 0;
+  secondCirc.vx = random(-5,5);
+  secondCirc.vy = random(-5,5);
 }
