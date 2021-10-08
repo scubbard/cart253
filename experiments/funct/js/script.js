@@ -59,33 +59,28 @@ createCanvas(windowWidth,windowHeight);
 Description of draw()
 */
 function draw() {
-
-
-  background(255);
-
-let offScreen = circleOffScreen();
-  if (offScreen) {
-  reset();
-  }
-
-
-circle(firstCirc.x,firstCirc.y,firstCirc.size);
-  firstCirc.x = firstCirc.x + firstCirc.vx;
-  firstCirc.y = firstCirc.y + firstCirc.vy;
-
-circle(secondCirc.x,secondCirc.y,secondCirc.size);
-  secondCirc.x = secondCirc.x + secondCirc.vx;
-  secondCirc.y = secondCirc.y + secondCirc.vy;
-
+  background(firstCirc.x,firstCirc.y,secondCirc.x);
+  simulation();
 }
 
 
+function simulation() {
+  display();
+  move();
+  checkOffScreen();
+  checkOverlap();
+}
+
 function circleOffScreen() {
   let result =
-    (firstCirc.x > width  || firstCirc.x < 0  ||
-    firstCirc.y > height  || firstCirc.y < 0  ||
-    secondCirc.x > width || secondCirc.x < 0  ||
-    secondCirc.y > height  || secondCirc.y < 0 );
+    (firstCirc.x > width + firstCirc.size/2  ||
+    firstCirc.x < 0 - firstCirc.size/2 ||
+    firstCirc.y > height + firstCirc.size/2 ||
+    firstCirc.y < 0 - firstCirc.size/2 ||
+    secondCirc.x > width + secondCirc.size/2 ||
+    secondCirc.x < 0 - secondCirc.size/2 ||
+    secondCirc.y > height + secondCirc.size/2 ||
+    secondCirc.y < 0 - secondCirc.size/2 );
   print(result);
   return result;
 }
@@ -101,4 +96,36 @@ function reset() {
   secondCirc.y = height/2;
   secondCirc.vx = random(-5,5);
   secondCirc.vy = random(-5,5);
+}
+
+function checkOverlap() {
+  let d = dist(firstCirc.x,firstCirc.y,secondCirc.x,secondCirc.y);
+  stroke(0);
+  if (d < firstCirc.size/2){
+  text(`wow! true love!`,width/2,height/2);
+  }
+}
+
+
+function display() {
+    stroke(0);
+    circle(firstCirc.x,firstCirc.y,firstCirc.size);
+    circle(secondCirc.x,secondCirc.y,secondCirc.size);
+}
+
+function move() {
+
+    firstCirc.x = firstCirc.x + firstCirc.vx;
+    firstCirc.y = firstCirc.y + firstCirc.vy;
+
+    secondCirc.x = secondCirc.x + secondCirc.vx;
+    secondCirc.y = secondCirc.y + secondCirc.vy;
+
+}
+
+function checkOffScreen() {
+  let offScreen = circleOffScreen();
+    if (offScreen) {
+    reset();
+    }
 }
