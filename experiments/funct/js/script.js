@@ -8,12 +8,14 @@ author, and this description to match your project!
 
 "use strict";
 
+let state = `title`
+
 let firstCirc = {
   x: undefined,
   y: undefined,
   vx: 0,
   vy: 0,
-  size:100,
+  size:50,
   speed: 5,
 }
 
@@ -22,14 +24,9 @@ let secondCirc = {
   y: undefined,
   vx: 0,
   vy: 0,
-  size:100,
+  size:50,
   speed: 5,
 }
-
-function preload() {
-
-}
-
 
 /**
 Description of setup
@@ -60,7 +57,15 @@ Description of draw()
 */
 function draw() {
   background(firstCirc.x,firstCirc.y,secondCirc.x);
-  simulation();
+  if (state === `simulation`) {
+    simulation(); }
+  if (state === `title`) {
+    title(); }
+  if (state === `love`) {
+    love(); }
+  if (state === `sadness`) {
+    sadness();
+  }
 }
 
 
@@ -100,9 +105,11 @@ function reset() {
 
 function checkOverlap() {
   let d = dist(firstCirc.x,firstCirc.y,secondCirc.x,secondCirc.y);
-  stroke(0);
-  if (d < firstCirc.size/2){
-  text(`wow! true love!`,width/2,height/2);
+  print(firstCirc.size/2);
+  print(secondCirc.size/2);
+  print(d);
+  if (d < firstCirc.size/2|| d < secondCirc.size/2){
+  state = `love`;
   }
 }
 
@@ -126,6 +133,25 @@ function move() {
 function checkOffScreen() {
   let offScreen = circleOffScreen();
     if (offScreen) {
-    reset();
+    //reset();
+    state = `sadness`;
     }
+}
+
+function title() {
+text(`LOVE!`, width/2, height/2);
+}
+
+function mousePressed() {
+  if (state === `title`) {
+    state = `simulation`;
+  }
+}
+
+function love() {
+  text(`it's true love!`,width/2,height/2);
+}
+
+function sadness() {
+  text(`this is so sad :(`,width/2,height/2);
 }
