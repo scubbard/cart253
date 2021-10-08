@@ -56,7 +56,8 @@ createCanvas(windowWidth,windowHeight);
 Description of draw()
 */
 function draw() {
-  background(firstCirc.x,firstCirc.y,secondCirc.x);
+  //background(firstCirc.x,firstCirc.y,secondCirc.x);
+  
   if (state === `simulation`) {
     simulation(); }
   if (state === `title`) {
@@ -154,4 +155,8 @@ function love() {
 
 function sadness() {
   text(`this is so sad :(`,width/2,height/2);
+}
+
+function colourChange(){
+  if keyIsPressed(UP_ARROW)
 }
