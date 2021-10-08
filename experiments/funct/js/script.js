@@ -35,10 +35,10 @@ function setup() {
 
   reset();
 
-  firstCirc.x = width/3
-  firstCirc.y = height/2
-  secondCirc.x = width/3 + width/3
-  secondCirc.y = height/2
+  firstCirc.x = width/3;
+  firstCirc.y = height/2;
+  secondCirc.x = width/3 + width/3;
+  secondCirc.y = height/2;
 
 firstCirc.vx = random(-firstCirc.speed,firstCirc.speed);
 firstCirc.vy = random(-firstCirc.speed,firstCirc.speed);
@@ -56,8 +56,7 @@ createCanvas(windowWidth,windowHeight);
 Description of draw()
 */
 function draw() {
-  //background(firstCirc.x,firstCirc.y,secondCirc.x);
-  
+  background(firstCirc.x,firstCirc.y,secondCirc.x);
   if (state === `simulation`) {
     simulation(); }
   if (state === `title`) {
@@ -155,8 +154,4 @@ function love() {
 
 function sadness() {
   text(`this is so sad :(`,width/2,height/2);
-}
-
-function colourChange(){
-  if keyIsPressed(UP_ARROW)
 }
