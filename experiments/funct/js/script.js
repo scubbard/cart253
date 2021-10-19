@@ -35,6 +35,8 @@ function setup() {
 
   reset();
 
+  createCanvas(windowWidth,windowHeight);
+
   firstCirc.x = width/3;
   firstCirc.y = height/2;
   secondCirc.x = width/3 + width/3;
@@ -47,7 +49,6 @@ secondCirc.vx = random(-secondCirc.speed,secondCirc.speed);
 secondCirc.vy = random(-secondCirc.speed,secondCirc.speed);
 
 
-createCanvas(windowWidth,windowHeight);
 
 }
 
