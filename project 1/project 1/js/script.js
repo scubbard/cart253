@@ -24,8 +24,10 @@ let moverOne = {
   y: undefined,
   vx: 0,
   vy: 0,
-  size:50,
+  size:30,
   speed: 5,
+  rad: undefined,
+
 }
 
 let moverTwo = {
@@ -33,8 +35,9 @@ let moverTwo = {
   y: undefined,
   vx: 0,
   vy: 0,
-  size:50,
+  size:30,
   speed: 5,
+  rad: undefined,
 }
 
 /**
@@ -50,6 +53,7 @@ firstPosition();
 Description of draw()
 */
 function draw() {
+background(200,100,100);
   if (state === `title`) {
     title(); }
   if (state === `simulation`) {
@@ -59,6 +63,7 @@ function draw() {
 
 function simulation(){
   display();
+  moverMove();
 }
 
 function display() {
@@ -84,6 +89,15 @@ function display(){
   circle(moverOne.x,moverOne.y,moverOne.size);
   circle(moverTwo.x,moverTwo.y,moverTwo.size);
   pop();
+  bounce();
+}
+
+function moverMove(){
+    moverOne.x = moverOne.x + moverOne.vx;
+    moverOne.y = moverOne.y + moverOne.vy;
+    moverTwo.x = moverTwo.x + moverTwo.vx;
+    moverTwo.y = moverTwo.y + moverTwo.vy;
+
 }
 
 function firstPosition(){
@@ -96,15 +110,35 @@ function firstPosition(){
   moverOne.y = height/2
   moverOne.vx = random(-2,2);
   moverOne.vy = random(-2,2);
+  moverOne.rad = moverOne.size/2;
 
   moverTwo.x = width - width/4
   moverTwo.y = height/2
   moverTwo.vx = random(-2,2);
   moverTwo.vy = random(-2,2);
+  moverTwo.rad = moverTwo.size/2;
 }
 
 function mousePressed() {
   if (state === `title`) {
     state = `simulation`;
   }
+}
+
+function bounce() {
+//moverOne.x = constrain(moverOne.x,0 + moverOne.size, width - moverOne.size);
+//moverOne.y = constrain(moverOne.y,0 + moverOne.size, height - moverOne.size);
+//moverTwo.x = constrain(moverTwo.x,0 + moverTwo.size, width - moverTwo.size);
+//moverTwo.y = constrain(moverTwo.y,0 + moverTwo.size, height - moverTwo.size);
+
+if (moverOne.x > width - moverOne.rad || moverOne.x - moverOne.rad < 0
+    || moverOne.y > height - moverOne.rad || moverOne.y < 0 + moverOne.rad){
+      moverOne.vx = random(-2,2);
+      moverOne.vy = random(-2,2);
+    }
+if (moverTwo.x > width - moverTwo.rad || moverTwo.x - moverTwo.rad < 0
+        || moverTwo.y > height - moverTwo.rad || moverTwo.y < 0 + moverTwo.rad){
+          moverTwo.vx = random(-2,2);
+          moverTwo.vy = random(-2,2);
+        }
 }
