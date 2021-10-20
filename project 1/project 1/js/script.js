@@ -16,7 +16,6 @@ let player = {
   vx: 0,
   vy: 0,
   size:50,
-  speed: 5,
 }
 
 let moverOne = {
@@ -25,7 +24,6 @@ let moverOne = {
   vx: 0,
   vy: 0,
   size:30,
-  speed: 5,
   rad: undefined,
 
 }
@@ -36,9 +34,44 @@ let moverTwo = {
   vx: 0,
   vy: 0,
   size:30,
-  speed: 5,
   rad: undefined,
 }
+
+let staticOne = {
+  x: undefined,
+  y: undefined,
+  size:30,
+  rad: undefined,
+}
+
+let staticTwo = {
+  x: undefined,
+  y: undefined,
+  size:30,
+  rad: undefined,
+}
+
+let staticThree = {
+  x: undefined,
+  y: undefined,
+  size:30,
+  rad: undefined,
+}
+
+let staticFour = {
+  x: undefined,
+  y: undefined,
+  size:30,
+  rad: undefined,
+}
+
+let staticFive = {
+  x: undefined,
+  y: undefined,
+  size:30,
+  rad: undefined,
+}
+
 
 /**
 Description of setup
@@ -64,6 +97,7 @@ background(200,100,100);
 function simulation(){
   display();
   moverMove();
+  playerMove();
 }
 
 function display() {
@@ -90,6 +124,7 @@ function display(){
   circle(moverTwo.x,moverTwo.y,moverTwo.size);
   pop();
   bounce();
+  playerOverlap();
 }
 
 function moverMove(){
@@ -103,8 +138,6 @@ function moverMove(){
 function firstPosition(){
   player.x = width/2;
   player.y = height/2;
-  player.vx = random(-5,5);
-  player.vy = random(-5,5);
 
   moverOne.x = width/4
   moverOne.y = height/2
@@ -117,6 +150,10 @@ function firstPosition(){
   moverTwo.vx = random(-2,2);
   moverTwo.vy = random(-2,2);
   moverTwo.rad = moverTwo.size/2;
+
+  staticTwo.x =
+  staticTwo.y =
+  staticTwo.rad = moverTwo.size/2;
 }
 
 function mousePressed() {
@@ -125,12 +162,22 @@ function mousePressed() {
   }
 }
 
-function bounce() {
-//moverOne.x = constrain(moverOne.x,0 + moverOne.size, width - moverOne.size);
-//moverOne.y = constrain(moverOne.y,0 + moverOne.size, height - moverOne.size);
-//moverTwo.x = constrain(moverTwo.x,0 + moverTwo.size, width - moverTwo.size);
-//moverTwo.y = constrain(moverTwo.y,0 + moverTwo.size, height - moverTwo.size);
+function playerMove(){
+  if (keyIsDown(LEFT_ARROW)) {
+    player.x = player.x - 2
+  }
+  if (keyIsDown(RIGHT_ARROW)) {
+    player.x = player.x + 2
+  }
+  if (keyIsDown(DOWN_ARROW)) {
+    player.y = player.y + 2
+  }
+  if (keyIsDown(UP_ARROW)) {
+    player.y = player.y - 2
+  }
+}
 
+function bounce() {
 if (moverOne.x > width - moverOne.rad || moverOne.x - moverOne.rad < 0
     || moverOne.y > height - moverOne.rad || moverOne.y < 0 + moverOne.rad){
       moverOne.vx = random(-2,2);
@@ -141,4 +188,42 @@ if (moverTwo.x > width - moverTwo.rad || moverTwo.x - moverTwo.rad < 0
           moverTwo.vx = random(-2,2);
           moverTwo.vy = random(-2,2);
         }
+}
+
+function playerOverlap(){
+  let dMoverOne = dist(moverOne.x,moverOne.y, player.x, player.y);
+    if (dMoverOne < moverOne.size/2|| dMoverOne < player.size/2){
+      moverOne.size = 0;
+    }
+  let dMoverTwo = dist(moverTwo.x,moverTwo.y, player.x, player.y);
+    if (dMoverTwo < moverTwo.size/2|| dMoverTwo < player.size/2){
+    moverTwo.size = 0;
+    }
+  let dStaticOne = dist(staticOne.x,staticOne.y, player.x, player.y);
+    if (dStaticOne < staticOne.size/2|| dStaticOne < player.size/2){
+    staticOne.size = 0;
+    }
+  let dStaticTwo = dist(staticTwo.x,staticTwo.y, player.x, player.y);
+    if (dStaticTwo < staticTwo.size/2|| dStaticTwo < player.size/2){
+      staticTwo.size = 0;
+    }
+  let dStaticThree = dist(staticThree.x,staticThree.y, player.x, player.y);
+    if (dStaticThree < staticThree.size/2|| dStaticThree < player.size/2){
+      staticThree.size = 0;
+    }
+  let dStaticFour = dist(staticFour.x,staticFour.y, player.x, player.y);
+    if (dStaticFour < staticFour.size/2|| dStaticFour < player.size/2){
+      staticFour.size = 0;
+    }
+  let dStaticFive = dist(staticFive.x,staticFive.y, player.x, player.y);
+    if (dStaticFive < staticFive.size/2|| dStaticFive < player.size/2){
+      staticFive.size = 0;
+    }
+
+
+
+}
+
+function isCollected(){
+
 }
