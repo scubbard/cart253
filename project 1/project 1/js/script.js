@@ -8,7 +8,7 @@ short simulation. collect the music notes and win a prize (it's more music)!
 
 "use strict";
 
-let state = `title`
+let state = `ending`
 
 let player = {
   x: undefined,
@@ -90,7 +90,9 @@ background(200,100,100);
   if (state === `title`) {
     title(); }
   if (state === `simulation`) {
-    simulation();
+    simulation(); }
+  if (state ===  `ending`) {
+    ending();
   }
 }
 
@@ -98,6 +100,7 @@ function simulation(){
   display();
   moverMove();
   playerMove();
+  checkCollection();
 }
 
 function display() {
@@ -122,6 +125,11 @@ function display(){
   fill(200,0,50);
   circle(moverOne.x,moverOne.y,moverOne.size);
   circle(moverTwo.x,moverTwo.y,moverTwo.size);
+  circle(staticOne.x,staticOne.y,staticOne.size);
+  circle(staticTwo.x,staticTwo.y,staticTwo.size);
+  circle(staticThree.x,staticThree.y,staticThree.size);
+  circle(staticFour.x,staticFour.y,staticFour.size);
+  circle(staticFive.x,staticFive.y,staticFive.size);
   pop();
   bounce();
   playerOverlap();
@@ -151,9 +159,21 @@ function firstPosition(){
   moverTwo.vy = random(-2,2);
   moverTwo.rad = moverTwo.size/2;
 
-  staticTwo.x =
-  staticTwo.y =
-  staticTwo.rad = moverTwo.size/2;
+  staticOne.x = width/4
+  staticOne.y = height/3
+
+  staticTwo.x = width/2
+  staticTwo.y = height/4
+
+  staticThree.x = width - width/4
+  staticThree.y = height/3
+
+  staticFour.x = width/4
+  staticFour.y = height - height/3
+
+  staticFive.x = width - width/4
+  staticFive.y = height - height/3
+
 }
 
 function mousePressed() {
@@ -164,16 +184,16 @@ function mousePressed() {
 
 function playerMove(){
   if (keyIsDown(LEFT_ARROW)) {
-    player.x = player.x - 2
+    player.x = player.x - 3
   }
   if (keyIsDown(RIGHT_ARROW)) {
-    player.x = player.x + 2
+    player.x = player.x + 3
   }
   if (keyIsDown(DOWN_ARROW)) {
-    player.y = player.y + 2
+    player.y = player.y + 3
   }
   if (keyIsDown(UP_ARROW)) {
-    player.y = player.y - 2
+    player.y = player.y - 3
   }
 }
 
@@ -191,33 +211,41 @@ if (moverTwo.x > width - moverTwo.rad || moverTwo.x - moverTwo.rad < 0
 }
 
 function playerOverlap(){
+
   let dMoverOne = dist(moverOne.x,moverOne.y, player.x, player.y);
     if (dMoverOne < moverOne.size/2|| dMoverOne < player.size/2){
       moverOne.size = 0;
+      isCollected();
     }
   let dMoverTwo = dist(moverTwo.x,moverTwo.y, player.x, player.y);
     if (dMoverTwo < moverTwo.size/2|| dMoverTwo < player.size/2){
     moverTwo.size = 0;
+    isCollected();
     }
   let dStaticOne = dist(staticOne.x,staticOne.y, player.x, player.y);
     if (dStaticOne < staticOne.size/2|| dStaticOne < player.size/2){
     staticOne.size = 0;
+    isCollected();
     }
   let dStaticTwo = dist(staticTwo.x,staticTwo.y, player.x, player.y);
     if (dStaticTwo < staticTwo.size/2|| dStaticTwo < player.size/2){
       staticTwo.size = 0;
+      isCollected();
     }
   let dStaticThree = dist(staticThree.x,staticThree.y, player.x, player.y);
     if (dStaticThree < staticThree.size/2|| dStaticThree < player.size/2){
       staticThree.size = 0;
+      isCollected();
     }
   let dStaticFour = dist(staticFour.x,staticFour.y, player.x, player.y);
     if (dStaticFour < staticFour.size/2|| dStaticFour < player.size/2){
       staticFour.size = 0;
+      isCollected();
     }
   let dStaticFive = dist(staticFive.x,staticFive.y, player.x, player.y);
     if (dStaticFive < staticFive.size/2|| dStaticFive < player.size/2){
       staticFive.size = 0;
+      isCollected();
     }
 
 
@@ -225,5 +253,29 @@ function playerOverlap(){
 }
 
 function isCollected(){
+//play sound effect
+}
+
+
+function checkCollection(){
+  if (moverOne.size < 1 && moverTwo.size < 1 && staticOne.size < 1
+      && staticTwo.size < 1 && staticThree.size < 1 && staticFour.size < 1
+      && staticFive.size < 1)
+        {
+          allCollected();
+          state = `ending`
+        }
+}
+
+function allCollected(){
+  //sound effect
+}
+
+function ending(){
+
+  stroke(0);
+  background(150,150,255);
+  textSize(30);
+  text(`you're such a wonderful musician!`,width/2, height/2);
 
 }
