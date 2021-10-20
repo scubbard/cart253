@@ -77,12 +77,13 @@ let staticFive = {
 }
 
 function preload() {
+//loads sound assets for later use
   creditsSFX = loadSound(`assets/sounds/hawk.mp3`);
   collectSFX = loadSound(`assets/sounds/sfxHit.mp3`);
 }
 
 /**
-Description of setup
+creates a canvas and brings all objects to origin
 */
 function setup() {
 createCanvas(windowWidth,windowHeight);
@@ -91,7 +92,8 @@ firstPosition();
 
 
 /**
-Description of draw()
+creates background and sets conditions to trigger functions depending on which
+state is active
 */
 function draw() {
 background(200,100,100);
@@ -111,12 +113,8 @@ function simulation(){
   checkCollection();
 }
 
-function display() {
-  stroke(0);
-  circle(player.x,player.y,player.size);
-}
-
 function title() {
+//initial screen. user clicks to begin the simulation.
   background(0,200,150);
   stroke(0);
   textSize(20);
@@ -124,9 +122,10 @@ function title() {
 }
 
 function display(){
+//draws all objects on the screen
   push();
   stroke(0);
-  fill(0);
+  fill(100,50,200);
   circle(player.x,player.y,player.size);
   pop();
   push();
@@ -145,6 +144,7 @@ function display(){
 }
 
 function moverMove(){
+//makes the two moving objects move
     moverOne.x = moverOne.x + moverOne.vx;
     moverOne.y = moverOne.y + moverOne.vy;
     moverTwo.x = moverTwo.x + moverTwo.vx;
@@ -153,6 +153,7 @@ function moverMove(){
 }
 
 function firstPosition(){
+//sets the origin point of all objects
   player.x = width/2;
   player.y = height/2;
 
@@ -207,6 +208,8 @@ function playerMove(){
 }
 
 function bounce() {
+//prevents objects from moving off the screen by setting a new random vx and vy
+//every time they touch the edge of the screen
 if (moverOne.x > width - moverOne.rad || moverOne.x - moverOne.rad < 0
     || moverOne.y > height - moverOne.rad || moverOne.y < 0 + moverOne.rad){
       moverOne.vx = random(-2,2);
@@ -220,7 +223,8 @@ if (moverTwo.x > width - moverTwo.rad || moverTwo.x - moverTwo.rad < 0
 }
 
 function playerOverlap(){
-
+//very clunky code that checks if the playercharacter is touching any of the
+//other objects, and if it is, sets their size to 0 and plays an sfx
   let dMoverOne = dist(moverOne.x,moverOne.y, player.x, player.y);
     if (dMoverOne < moverOne.size/2|| dMoverOne < player.size/2){
       moverOne.size = 0;
@@ -268,6 +272,7 @@ collectSFX.play();
 
 
 function checkCollection(){
+//if all objects are `collected`, the ending state is triggered
   if (moverOne.size < 1 && moverTwo.size < 1 && staticOne.size < 1
       && staticTwo.size < 1 && staticThree.size < 1 && staticFour.size < 1
       && staticFive.size < 1)
@@ -278,12 +283,12 @@ function checkCollection(){
 }
 
 function allCollected(){
-  //sound effect
+  //play ending song
   creditsSFX.play();
 }
 
 function ending(){
-
+//ending state shows text and plays song
   stroke(0);
   background(200,50,100);
   textSize(30);
