@@ -119,7 +119,7 @@ function title() {
   stroke(0);
   textSize(20);
   text(`finish the song / click to start`,width/2,height/2);
-  text(`use the arrow keys to move!`,width/2,height-height/4);
+  text(`use the arrow keys to move!`,width/2,height/4);
 }
 
 function display(){
