@@ -8,7 +8,11 @@ short simulation. collect the music notes and win a prize (it's more music)!
 
 "use strict";
 
-let state = `ending`
+let state = `title`
+
+let collectSFX;
+let creditsSFX;
+
 
 let player = {
   x: undefined,
@@ -72,6 +76,10 @@ let staticFive = {
   rad: undefined,
 }
 
+function preload() {
+  creditsSFX = loadSound(`assets/sounds/hawk.mp3`);
+  collectSFX = loadSound(`assets/sounds/sfxHit.mp3`);
+}
 
 /**
 Description of setup
@@ -111,7 +119,8 @@ function display() {
 function title() {
   background(0,200,150);
   stroke(0);
-  text(`click to start`,width/2,height/2);
+  textSize(20);
+  text(`finish the song / click to start`,width/2,height/2);
 }
 
 function display(){
@@ -254,6 +263,7 @@ function playerOverlap(){
 
 function isCollected(){
 //play sound effect
+collectSFX.play();
 }
 
 
@@ -269,13 +279,13 @@ function checkCollection(){
 
 function allCollected(){
   //sound effect
+  creditsSFX.play();
 }
 
 function ending(){
 
   stroke(0);
-  background(150,150,255);
+  background(200,50,100);
   textSize(30);
   text(`you're such a wonderful musician!`,width/2, height/2);
-
 }
