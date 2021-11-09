@@ -21,5 +21,4 @@ Description of draw()
 function draw() {
 background(200,50,50);
 type(`hello!`,width/2,height/2);
-rect(200,200,200,);
 }
