@@ -4,6 +4,13 @@ code by georgie
 */
 
 "use strict";
+let myFont;
+
+
+function preload() {
+  myFont = loadFont(`assets/HappyTime.otf`);
+}
+
 
 
 /**
@@ -20,5 +27,15 @@ Description of draw()
 */
 function draw() {
 background(200,50,50);
-type(`hello!`,width/2,height/2);
+stroke(0);
+textFont(myFont);
+textSize(100);
+text(key,width/2,height/2);
+
+
+}
+
+function keyTyped() {
+  stroke(0);
+  text(key);
 }
