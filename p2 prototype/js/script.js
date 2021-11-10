@@ -98,6 +98,7 @@ function wordTyped() {
 
 function ending() {
   background(50,200,0);
+  textSize(100);
   text(`wahoo!`, width/2,height/2)
   song();
 }
@@ -110,6 +111,9 @@ function start() {
 function song() {
   if(!mySong.isPlaying()){
     mySong.loop();
+  if(state != `ending`){
+    mySong.stop();
+  }
   }
 }
 
@@ -122,6 +126,8 @@ function mousePressed() {
 function fullReset() {
   if (keyCode === DOWN_ARROW){
     state = `start`
+    typing = ``;
+    mySong.stop();
   }
 }
 
