@@ -5,11 +5,13 @@ code by georgie
 
 "use strict";
 let myFont;
+let mySong;
 let typing = ``;
 let state = `start`
 
 function preload() {
   myFont = loadFont(`assets/HappyTime.otf`);
+  mySong = loadSound(`assets/sounds/doAgain.mp3`);
 }
 
 
@@ -66,5 +68,11 @@ function wordTyped() {
 function ending() {
   background(50,200,0);
   text(`wahoo!`, width/2,height/2)
+  song();
+}
 
+function song() {
+  if(!mySong.isPlaying()){
+    mySong.loop();
+  }
 }
