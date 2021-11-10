@@ -8,6 +8,12 @@ let myFont;
 let mySong;
 let typing = ``;
 let state = `start`
+let textPosition = {
+  x: 30,
+  y: 30,
+  vx: 2,
+  vy: 2,
+}
 
 function preload() {
   myFont = loadFont(`assets/HappyTime.otf`);
@@ -30,6 +36,10 @@ Description of draw()
 */
 function draw() {
   if (state === `start`) {
+    start();
+  }
+
+  if (state === `simulation`) {
     simulation();
   }
   if (state === `ending`) {
@@ -41,11 +51,30 @@ wordTyped();
 
 function simulation(){
   background(200,50,50);
+  words();
+  floatyWords();
+  staticText();
+}
+
+function words(){
   stroke(0);
   textFont(myFont);
   textSize(100);
   textAlign(CENTER);
   text(typing,width/2,height/2);
+}
+
+function floatyWords(){
+  textSize(30);
+  text(`testing testing...check..1..2....`,textPosition.x,textPosition.y)
+  textPosition.x = textPosition.x + textPosition.vx
+  textPosition.y = textPosition.y + textPosition.vy
+  textReset();
+}
+
+function staticText(){
+  textSize(15);
+  text(`press down arrow to reset`,width/2,800);
 }
 
 function keyTyped() {
@@ -56,7 +85,9 @@ function keyTyped() {
 function keyPressed() {
   if (keyCode === BACKSPACE){
     typing = typing - key;
-    print(typing);
+  }
+  if (keyCode === DOWN_ARROW){
+    fullReset();
   }
 }
 
@@ -71,8 +102,33 @@ function ending() {
   song();
 }
 
+function start() {
+  background(0,50,200);
+  text(`click 2 start`,width/2,height/2)
+}
+
 function song() {
   if(!mySong.isPlaying()){
     mySong.loop();
+  }
+}
+
+function mousePressed() {
+  if (state === `start`) {
+    state = `simulation`;
+  }
+}
+
+function fullReset() {
+  if (keyCode === DOWN_ARROW){
+    state = `start`
+  }
+}
+
+
+function textReset() {
+  if (textPosition.x>width || textPosition.y>height){
+    textPosition.x = 0
+    textPosition.y = 0
   }
 }
