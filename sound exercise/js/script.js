@@ -12,6 +12,10 @@ let leftSprite = undefined;
 let centerSprite = undefined;
 let rightSprite = undefined;
 
+let leftImageShowing = false;
+let rightImageShowing = false;
+let centerImageShowing = false;
+
 /**
 Description of preload
 */
@@ -35,10 +39,57 @@ Description of draw()
 */
 function draw() {
   background(0);
-  imageMode(CENTER);
-  mouseWhere();
+
+  //mouseWhere();
+  keyPressed();
 }
 
+function keyPressed() {
+  imageMode(CENTER);
+  showLeft();
+  showRight();
+  showCenter();
+}
+
+function showLeft() {
+  if (keyCode === LEFT_ARROW && !rightImageShowing) {
+    leftImage();
+    leftIsShowing = true
+    reset();
+    }
+  }
+
+function showRight() {
+  if (keyCode === RIGHT_ARROW && !leftImageShowing) {
+    rightImage();
+    rightIsShowing = true
+    reset();
+  }
+}
+
+function showCenter() {
+  centerImage();
+  centerImageShowing = true
+}
+
+function checkCenter() {
+  if (!leftImageShowing) {
+    showCenter();
+    reset();
+  }
+  if (!rightImageShowing) {
+    showCenter();
+    reset();
+  }
+}
+
+function singleFile(){
+  if (leftImageShowing && rightImageShowing) {
+    reset();
+  }
+}
+
+/**
 function mouseWhere() {
   if (mouseX<width/3) {
     leftImage();
@@ -50,14 +101,24 @@ function mouseWhere() {
     centerImage();
   }
 }
+*/
+
 
 function leftImage() {
     image(leftSprite,width/3,height/2);
   }
+
 function centerImage() {
   image(centerSprite,width/2,height/2);
 }
 
 function rightImage() {
   image(rightSprite,width - width/3,height/2);
+}
+
+function reset() {
+  background(0);
+  checkCenter();
+  leftImageShowing = false
+  rightImageShowing = false
 }
