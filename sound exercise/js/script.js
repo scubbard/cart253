@@ -11,6 +11,9 @@ author, and this description to match your project!
 let leftSprite = undefined;
 let centerSprite = undefined;
 let rightSprite = undefined;
+let leftText = undefined;
+let rightText = undefined;
+let yeahText = undefined;
 
 let leftImageShowing = false;
 let rightImageShowing = false;
@@ -23,6 +26,9 @@ function preload() {
   leftSprite = loadImage(`assets/images/left.png`);
   centerSprite = loadImage(`assets/images/middle.png`);
   rightSprite = loadImage(`assets/images/right.png`);
+  rightText = loadImage(`assets/images/rightText.png`);
+  leftText = loadImage(`assets/images/leftText.png`);
+  yeahText = loadImage(`assets/images/yeahText.png`);
 }
 
 
@@ -50,7 +56,6 @@ function keyPressed() {
   showLeft();
   showRight();
   checkCenter();
-  singleFile();
 }
 
 function keyReleased() {
@@ -89,37 +94,20 @@ function checkCenter() {
   }
 }
 
-function singleFile(){
-  if (leftImageShowing && rightImageShowing) {
-    reset();
-  }
-}
-
-/**
-function mouseWhere() {
-  if (mouseX<width/3) {
-    leftImage();
-  }
-  else if (mouseX>width - width/3) {
-    rightImage();
-  }
-  else {
-    centerImage();
-  }
-}
-*/
-
 
 function leftImage() {
     image(leftSprite,width/3,height/2);
+    image(leftText,width/3,height - height/4);
   }
 
 function centerImage() {
   image(centerSprite,width/2,height/2);
+  image(yeahText,width/2,height - height/4);
 }
 
 function rightImage() {
   image(rightSprite,width - width/3,height/2);
+  image(rightText,width - width/3, height - height/4)
 }
 
 function reset() {
