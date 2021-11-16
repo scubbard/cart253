@@ -42,44 +42,50 @@ function draw() {
 
   //mouseWhere();
   keyPressed();
+  keyReleased();
 }
 
 function keyPressed() {
   imageMode(CENTER);
   showLeft();
   showRight();
-  showCenter();
+  checkCenter();
+  singleFile();
+}
+
+function keyReleased() {
+  if (keyCode === LEFT_ARROW || RIGHT_ARROW) {
+    showCenter();
+    rightIsShowing = false
+    leftIsShowing = false
+  }
 }
 
 function showLeft() {
-  if (keyCode === LEFT_ARROW && !rightImageShowing) {
+  if (keyIsDown(LEFT_ARROW) && !rightImageShowing) {
+    reset();
     leftImage();
     leftIsShowing = true
-    reset();
     }
   }
 
 function showRight() {
-  if (keyCode === RIGHT_ARROW && !leftImageShowing) {
+  if (keyIsDown(RIGHT_ARROW) && !leftImageShowing) {
+    reset();
     rightImage();
     rightIsShowing = true
-    reset();
   }
 }
 
 function showCenter() {
+  reset();
   centerImage();
   centerImageShowing = true
 }
 
 function checkCenter() {
-  if (!leftImageShowing) {
+  if (!leftImageShowing || !rightImageShowing) {
     showCenter();
-    reset();
-  }
-  if (!rightImageShowing) {
-    showCenter();
-    reset();
   }
 }
 
@@ -118,7 +124,7 @@ function rightImage() {
 
 function reset() {
   background(0);
-  checkCenter();
+  //checkCenter();
   leftImageShowing = false
   rightImageShowing = false
 }
