@@ -23,6 +23,12 @@ let currentText = yeahText;
 
 
 let layerOne;
+let ooh;
+let ah;
+let synth;
+let notes = [`C5`,`D5`,`E5`,`F5`,`G5`,`A6`,`B6`];
+let osc
+
 
 let centerImageShowing = false;
 
@@ -37,7 +43,9 @@ function preload() {
   leftText = loadImage(`assets/images/leftText.png`);
   yeahText = loadImage(`assets/images/yeahText.png`);
 
-  layerOne = loadSound(`assets/sounds/songLayerFast.mp3`)
+  layerOne = loadSound(`assets/sounds/songLayerFast.mp3`);
+  ooh = loadSound(`assets/sounds/ooh.mp3`);
+  ah = loadSound(`assets/sounds/ah.mp3`);
 }
 
 
@@ -46,6 +54,9 @@ Description of setup
 */
 function setup() {
   createCanvas(windowWidth,windowHeight);
+  outputVolume(0.4);
+  synth = new p5.MonoSynth();
+  osc = new p5.Oscillator(`sawtooth`);
 }
 
 
@@ -92,6 +103,8 @@ function showLeft() {
     reset();
     leftImage();
     song();
+    ahSFX();
+    playRandomNote();
     }
   }
 
@@ -99,6 +112,9 @@ function showRight() {
   if (keyIsDown(RIGHT_ARROW)) {
     reset();
     rightImage();
+    song();
+    oohSFX();
+    playRandomNote();
   }
 }
 
@@ -122,6 +138,11 @@ function checkCenter() {
 }
 */
 
+function playRandomNote() {
+  let note = random(notes);
+  synth.play(note,1,0,1);
+}
+
 function start(){
   background(200,0,70);
   textSize(50);
@@ -131,12 +152,20 @@ function start(){
 function simulation(){
   background(0);
   textAlign(CENTER);
-  stroke(255);
-  fill(200,150,0);
-  text(`use left and right arrow keys to dance!`,width/2,height - height/5);
+  push();
+    stroke(255);
+    fill(200,150,0);
+    text(`use left and right arrow keys to dance!`,width/2,height - height/5);
+  pop();
+  push();
+    stroke(255);
+    fill(0,0,50);
+    text(`press down to turn off music :)`,width/2,height - height/8);
+  pop();
   image(currentSprite);
   handleInput();
   myText();
+
 
 }
 
@@ -159,6 +188,18 @@ function rightImage() {
 function song() {
   if(!layerOne.isPlaying()){
     layerOne.loop();
+  }
+}
+
+function oohSFX() {
+  if (!ooh.isPlaying()){
+    ooh.play();
+  }
+}
+
+function ahSFX() {
+  if (!ah.isPlaying()){
+    ah.play();
   }
 }
 
