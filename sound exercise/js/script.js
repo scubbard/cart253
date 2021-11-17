@@ -1,9 +1,8 @@
 /**
-Title of Project
-Author Name
+do a little dance
+by georgie
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+watch this guy do a little dance. make him move to the left. OR the right.
 */
 
 "use strict";
@@ -26,14 +25,12 @@ let layerOne;
 let ooh;
 let ah;
 let synth;
-let notes = [`C5`,`D5`,`E5`,`F5`,`G5`,`A6`,`B6`];
-let osc
-
+let notes = [`C5`, `D5`, `E5`, `F5`, `G5`, `A6`, `B6`];
 
 let centerImageShowing = false;
 
 /**
-Description of preload
+loading all sounds and images for later use in code
 */
 function preload() {
   leftSprite = loadImage(`assets/images/left.png`);
@@ -50,18 +47,21 @@ function preload() {
 
 
 /**
-Description of setup
+creating the canvas, making sure the output isn't too hot, and setting up the
+polysynth for later use.
 */
 function setup() {
-  createCanvas(windowWidth,windowHeight);
+  createCanvas(windowWidth, windowHeight);
   outputVolume(0.4);
   synth = new p5.MonoSynth();
-  osc = new p5.Oscillator(`sawtooth`);
+
+
 }
 
 
 /**
-Description of draw()
+setting conditions for state changes and calling functions to act these states
+out.
 */
 function draw() {
   if (state === `start`) {
@@ -72,6 +72,9 @@ function draw() {
     simulation();
   }
 }
+/**
+displays sprite on the left hand side while holding left arrow, and vice versa
+*/
 function handleInput() {
   if (keyIsDown(LEFT_ARROW)) {
     currentSprite = leftSprite;
@@ -105,8 +108,8 @@ function showLeft() {
     song();
     ahSFX();
     playRandomNote();
-    }
   }
+}
 
 function showRight() {
   if (keyIsDown(RIGHT_ARROW)) {
@@ -123,44 +126,43 @@ function showCenter() {
   centerImage();
   centerImageShowing = true
 }
-
+/**
+creates a title screen to get user input
+*/
 function mousePressed() {
   if (state === `start`) {
     state = `simulation`;
   }
 }
 
-/**
-function checkCenter() {
-  if (!leftImageShowing || !rightImageShowing) {
-    showCenter();
-  }
-}
-*/
-
+//user input makes a random note in the C Major scale play
 function playRandomNote() {
   let note = random(notes);
-  synth.play(note,1,0,1);
+  synth.play(note, 1, 0, 1);
 }
-
-function start(){
-  background(200,0,70);
+//aforementioned title screen
+function start() {
+  background(200, 0, 70);
+  textAlign(CENTER)
   textSize(50);
-  text(`click to start`,width/2,height/2)
+  text(`click to start`, width / 2, height / 2)
 }
-
-function simulation(){
+/**
+the main simulation. calls the sprites, sound effects, and plays music
+once the user begins the left/right sequence
+*/
+function simulation() {
   background(0);
   textAlign(CENTER);
   push();
-    stroke(255);
-    fill(200,150,0);
-    text(`use left and right arrow keys to dance!`,width/2,height - height/5);
+  stroke(255);
+  fill(200, 150, 0);
+  text(`use left and right arrow keys to dance!`, width / 2, height - height / 5);
   pop();
   push();
-    stroke(255);
-    fill(0,0,50);
-    text(`press down to turn off music :)`,width/2,height - height/8);
+  stroke(255);
+  fill(0, 0, 50);
+  text(`press down to turn off music :)`, width / 2, height - height / 8);
   pop();
   image(currentSprite);
   handleInput();
@@ -168,37 +170,37 @@ function simulation(){
 
 
 }
-
+//image calling functions
 function leftImage() {
-    image(leftSprite,width/3,height/2);
-    image(leftText,width/3,height - height/4);
-  }
+  image(leftSprite, width / 3, height / 2);
+  image(leftText, width / 3, height - height / 4);
+}
 
 function centerImage() {
-  image(centerSprite,width/2,height/2);
-  image(yeahText,width/2,height - height/4);
+  image(centerSprite, width / 2, height / 2);
+  image(yeahText, width / 2, height - height / 4);
 }
 
 function rightImage() {
-  image(rightSprite,width - width/3,height/2);
-  image(rightText,width - width/3, height - height/4)
+  image(rightSprite, width - width / 3, height / 2);
+  image(rightText, width - width / 3, height - height / 4)
 }
 
-
+//plays and loops the song as long as it isn't already playing
 function song() {
-  if(!layerOne.isPlaying()){
+  if (!layerOne.isPlaying()) {
     layerOne.loop();
   }
 }
-
+//plays a sound effect
 function oohSFX() {
-  if (!ooh.isPlaying()){
+  if (!ooh.isPlaying()) {
     ooh.play();
   }
 }
 
 function ahSFX() {
-  if (!ah.isPlaying()){
+  if (!ah.isPlaying()) {
     ah.play();
   }
 }
@@ -208,6 +210,6 @@ function reset() {
   //checkCenter();
 }
 
-function myText(){
-  text(currentText,currentText.x,currentText.y);
+function myText() {
+  text(currentText, currentText.x, currentText.y);
 }
