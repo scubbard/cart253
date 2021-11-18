@@ -6,6 +6,7 @@ code by georgie
 "use strict";
 let myFont;
 let mySong;
+let lastKey;
 let typing = ``;
 let state = `start`
 let textPosition = {
@@ -26,8 +27,7 @@ function preload() {
 Description of setup
 */
 function setup() {
-createCanvas(windowWidth,windowHeight);
-
+  createCanvas(windowWidth,windowHeight);
 }
 
 
@@ -44,6 +44,9 @@ function draw() {
   }
   if (state === `ending`) {
     ending();
+  }
+  if (state === `endingTwo`) {
+    endingTwo();
   }
 
 wordTyped();
@@ -79,12 +82,13 @@ function staticText(){
 
 function keyTyped() {
   stroke(0);
-  typing = typing + key;
+  typing += key;
 }
 //delete function is not currently working. need to debug
 function keyPressed() {
+  key = lastKey;
   if (keyCode === BACKSPACE){
-    typing = typing - key;
+    typing = typing.substring(0, typing.length - 1);
   }
   if (keyCode === DOWN_ARROW){
     fullReset();
@@ -94,12 +98,21 @@ function keyPressed() {
 function wordTyped() {
   if (typing === `testing`){
   state = `ending`}
+  if (typing === `theo boehm`){
+  state = `endingTwo`}
 }
 
 function ending() {
   background(50,200,0);
   textSize(100);
   text(`wahoo!`, width/2,height/2)
+  song();
+}
+
+function endingTwo(){
+  background(250,200,0);
+  textSize(100);
+  text(`theo!`, width/2,height/2)
   song();
 }
 
@@ -116,6 +129,7 @@ function song() {
   }
   }
 }
+
 
 function mousePressed() {
   if (state === `start`) {
