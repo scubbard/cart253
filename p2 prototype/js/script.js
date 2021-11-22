@@ -10,9 +10,9 @@ let lastKey;
 let typing = ``;
 let state = `start`
 
-let r;
-let g;
-let b;
+let r = 100;
+let g = 100;
+let b = 100;
 
 let textPosition = {
   x: 30,
@@ -83,39 +83,33 @@ function simulation(){
 }
 
 function myRect() {
-  rectMode(CENTER);
+  rectMode(CORNERS);
   push();
     noStroke();
-    fill(r, 50, 50);
-    r = random(r,0,255);
-    rect(width/2, height/2 ,rectOne.size)
+    fill(r, 50, 10);
+    rect(50, 50, width - 50,height - 50,)
   pop();
   push();
     noStroke();
-    fill(50,g,50)
-    g = random(g,0,255);
-    rect(width/2, height/2,rectTwo.size)
+    fill(200,g,20)
+    rect(100, 100, width - 100,height - 100,)
   pop();
   push();
     noStroke();
-    fill(50,50,b);
-    b = random(b,0,255);
-    rect(width/2, height/2, rectThree.size)
+    fill(100,0,b);
+    rect(200, 200, width - 200,height - 200,)
   pop();
   push();
     noStroke();
-    fill(r,g,100);
-    r = random(r,100,255)
-    g = random(g,0,100);
-    rect(width/2, height/2,rectFour.size)
+    fill(r,g,40);
+    rect(300, 300, width - 300,height - 300,)
   pop();
   push();
     noStroke();
     fill(r,50,b);
-    r = random(r,0,100);
-    b = random(b,100,255);
-    rect(width/2, height/2,rectFive.size)
+    rect(400, 400, width - 400,height - 400,)
   pop();
+
 }
 
 function words(){
@@ -140,8 +134,12 @@ function staticText(){
 }
 
 function keyTyped() {
+  r = random(100,255);
+  g = random(100,255);
+  b = random(100,255);
   stroke(0);
   typing += key;
+
 }
 
 function keyPressed() {
