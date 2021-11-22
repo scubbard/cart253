@@ -5,14 +5,21 @@ code by georgie
 
 "use strict";
 let myFont;
-let mySong;
-let lastKey;
+let doAgain;
+let dkIce;
+
+let dkOne;
+let dkTwo;
+let dkThree;
+let dkFour;
+let dkFive;
+
 let typing = ``;
 let state = `start`
 
 let r = 100;
-let g = 100;
-let b = 100;
+let g = 0;
+let b = 0;
 
 let textPosition = {
   x: 30,
@@ -39,7 +46,14 @@ let rectFive = {
 
 function preload() {
   myFont = loadFont(`assets/HappyTime.otf`);
-  mySong = loadSound(`assets/sounds/doAgain.mp3`);
+  doAgain = loadSound(`assets/sounds/doAgain.mp3`);
+  dkIce = loadSound(`assets/sounds/dk ice.mp3`);
+
+  dkOne = loadImage(`assets/images/dk1.png`);
+  dkTwo = loadImage(`assets/images/dk2.png`);
+  dkThree = loadImage(`assets/images/dk3.png`);
+  dkFour = loadImage(`assets/images/dk4.png`);
+  dkFive = loadImage(`assets/images/dk5.jpg`);
 }
 
 
@@ -68,6 +82,9 @@ function draw() {
   }
   if (state === `endingTwo`) {
     endingTwo();
+  }
+  if (state === `endingThree`) {
+    endingThree();
   }
 
 wordTyped();
@@ -134,9 +151,9 @@ function staticText(){
 }
 
 function keyTyped() {
-  r = random(100,255);
-  g = random(100,255);
-  b = random(100,255);
+  r = random(100,200);
+  g = random(0,100);
+  b = random(0,100);
   stroke(0);
   typing += key;
 
@@ -156,20 +173,35 @@ function wordTyped() {
   state = `ending`}
   if (typing === `theo boehm`){
   state = `endingTwo`}
+  if (typing === `donkey kong`) {
+    state = `endingThree`
+  }
 }
 
 function ending() {
   background(50,200,0);
   textSize(100);
   text(`wahoo!`, width/2,height/2)
-  song();
+  acousticSong();
 }
 
 function endingTwo(){
   background(250,200,0);
   textSize(100);
   text(`theo!`, width/2,height/2)
-  song();
+  acousticSong();
+}
+
+function endingThree(){
+  background(100,0,150);
+  textSize(100);
+  text(`donkey kong!`,width/2,height/2)
+  donkeySong();
+  image(dkOne, 400, 30);
+  image(dkTwo, 200, height);
+  image(dkThree, 600, 350);
+  image(dkFour, 800, 200);
+  image(dkFive, 100, 100);
 }
 
 function start() {
@@ -177,12 +209,21 @@ function start() {
   text(`click 2 start`,width/2,height/2)
 }
 
-function song() {
-  if(!mySong.isPlaying()){
-    mySong.loop();
+function acousticSong() {
+  if(!doAgain.isPlaying()){
+    doAgain.loop();
   if(state != `ending`){
-    mySong.stop();
+    doAgain.stop();
   }
+  }
+}
+
+function donkeySong(){
+  if(!dkIce.isPlaying()){
+    dkIce.loop();
+  }
+  if(state != `endingThree`){
+    dkIce.stop();
   }
 }
 
@@ -197,7 +238,8 @@ function fullReset() {
   if (keyCode === DOWN_ARROW){
     state = `start`
     typing = ``;
-    mySong.stop();
+    doAgain.stop();
+    donkeySong.stop();
   }
 }
 
