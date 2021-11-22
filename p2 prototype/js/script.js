@@ -9,12 +9,33 @@ let mySong;
 let lastKey;
 let typing = ``;
 let state = `start`
+
+let r;
+let g;
+let b;
+
 let textPosition = {
   x: 30,
   y: 30,
   vx: 2,
   vy: 2,
-}
+};
+
+let rectOne = {
+  size: 800
+};
+let rectTwo = {
+  size: 600
+};
+let rectThree = {
+  size: 400
+};
+let rectFour = {
+  size: 200
+};
+let rectFive = {
+  size: 100
+};
 
 function preload() {
   myFont = loadFont(`assets/HappyTime.otf`);
@@ -54,9 +75,47 @@ wordTyped();
 
 function simulation(){
   background(200,50,50);
+  myRect();
   words();
   floatyWords();
   staticText();
+
+}
+
+function myRect() {
+  rectMode(CENTER);
+  push();
+    noStroke();
+    fill(r, 50, 50);
+    r = random(r,0,255);
+    rect(width/2, height/2 ,rectOne.size)
+  pop();
+  push();
+    noStroke();
+    fill(50,g,50)
+    g = random(g,0,255);
+    rect(width/2, height/2,rectTwo.size)
+  pop();
+  push();
+    noStroke();
+    fill(50,50,b);
+    b = random(b,0,255);
+    rect(width/2, height/2, rectThree.size)
+  pop();
+  push();
+    noStroke();
+    fill(r,g,100);
+    r = random(r,100,255)
+    g = random(g,0,100);
+    rect(width/2, height/2,rectFour.size)
+  pop();
+  push();
+    noStroke();
+    fill(r,50,b);
+    r = random(r,0,100);
+    b = random(b,100,255);
+    rect(width/2, height/2,rectFive.size)
+  pop();
 }
 
 function words(){
@@ -84,9 +143,8 @@ function keyTyped() {
   stroke(0);
   typing += key;
 }
-//delete function is not currently working. need to debug
+
 function keyPressed() {
-  key = lastKey;
   if (keyCode === BACKSPACE){
     typing = typing.substring(0, typing.length - 1);
   }
