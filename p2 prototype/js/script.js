@@ -15,7 +15,13 @@ let dkFour;
 let dkFive;
 
 let typing = ``;
-let state = `start`
+let state = `start`;
+
+let counter = 0;
+let counterText = ``;
+
+let lastWord = ``;
+let currentWord = ``;
 
 let r = 100;
 let g = 0;
@@ -62,7 +68,7 @@ function preload() {
 Description of setup
 */
 function setup() {
-  createCanvas(windowWidth,windowHeight);
+  createCanvas(windowWidth, windowHeight);
 }
 
 
@@ -73,7 +79,6 @@ function draw() {
   if (state === `start`) {
     start();
   }
-
   if (state === `simulation`) {
     simulation();
   }
@@ -86,15 +91,28 @@ function draw() {
   if (state === `endingThree`) {
     endingThree();
   }
+  if (state === `whoYou`) {
+    whoAreYou();
+  }
+  if (state === `whoI`) {
+    whoAmI();
+  }
+  if (state === `whereWe`) {
+    whereAreWe();
+  }
+  if (state === `whatThis`) {
+    whatIsThis();
+  }
 
-wordTyped();
+  wordTyped();
 }
 
-function simulation(){
-  background(200,50,50);
+function simulation() {
+  background(200, 50, 50);
   myRect();
   words();
   floatyWords();
+  floatyWordsTwo();
   staticText();
 
 }
@@ -102,100 +120,148 @@ function simulation(){
 function myRect() {
   rectMode(CORNERS);
   push();
-    noStroke();
-    fill(r, 50, 10);
-    rect(50, 50, width - 50,height - 50,)
+  noStroke();
+  fill(r, 50, 10);
+  rect(50, 50, width - 50, height - 50, )
   pop();
   push();
-    noStroke();
-    fill(r,10,10)
-    rect(100, 100, width - 100,height - 100,)
+  noStroke();
+  fill(r, 10, 10)
+  rect(100, 100, width - 100, height - 100, )
   pop();
   push();
-    noStroke();
-    fill(r,50,70);
-    rect(200, 200, width - 200,height - 200,)
+  noStroke();
+  fill(r, 50, 70);
+  rect(200, 200, width - 200, height - 200, )
   pop();
   push();
-    noStroke();
-    fill(r,50,40);
-    rect(300, 300, width - 300,height - 300,)
+  noStroke();
+  fill(r, 50, 40);
+  rect(300, 300, width - 300, height - 300, )
   pop();
   push();
-    noStroke();
-    fill(r,50,b);
-    rect(400, 400, width - 400,height - 400,)
+  noStroke();
+  fill(r, 50, b);
+  rect(400, 400, width - 400, height - 400, )
   pop();
 
 }
 
-function words(){
+function words() {
   stroke(0);
   textFont(myFont);
   textSize(100);
   textAlign(CENTER);
-  text(typing,width/2,height/2);
+  text(typing, width / 2, height / 2);
 }
 
-function floatyWords(){
+function floatyWords() {
   textSize(30);
-  text(`testing testing...check..1..2....`,textPosition.x,textPosition.y)
+  text(`testing testing...check..1..2....`, textPosition.x, textPosition.y)
   textPosition.x = textPosition.x + textPosition.vx
   textPosition.y = textPosition.y + textPosition.vy
   textReset();
 }
 
-function staticText(){
+function floatyWordsTwo() {
+  textSize(30);
+  text(`i hate capital letters`, textPosition.x + 10, textPosition.y / 2)
+  textPosition.x = textPosition.x + textPosition.vx
+  textPosition.y = textPosition.y + textPosition.vy
+  textReset();
+}
+
+function staticText() {
   textSize(15);
-  text(`press down arrow to reset`,width/2,800);
+  text(`press down arrow to reset`, width / 2, 800);
 }
 
 function keyTyped() {
-  r = random(100,200);
-  g = random(0,100);
-  b = random(0,100);
+  r = random(100, 200);
+  g = random(0, 100);
+  b = random(0, 100);
   stroke(0);
   typing += key;
 
 }
 
 function keyPressed() {
-  if (keyCode === BACKSPACE){
+  if (keyCode === BACKSPACE) {
     typing = typing.substring(0, typing.length - 1);
   }
-  if (keyCode === DOWN_ARROW){
+  if (keyCode === DOWN_ARROW) {
     fullReset();
   }
 }
 
 function wordTyped() {
-  if (typing === `testing`){
-  state = `ending`}
-  if (typing === `theo boehm`){
-  state = `endingTwo`}
+  if (typing === `testing`) {
+    state = `ending`
+  }
+  if (typing === `theo boehm`) {
+    state = `endingTwo`
+  }
   if (typing === `donkey kong`) {
     state = `endingThree`
   }
+  if (typing === `who are you`) {
+    state = `whoYou`;
+    currentWord = `whoAreYou`
+    if (currentWord != lastWord){
+        counter += 1;
+    }
+    typing = ``;
+    lastWord = `whoAreYou`;
+  }
+  if (typing === `who am i`) {
+    state = `whoI`
+    currentWord = `whoAmI`
+    if (currentWord != lastWord){
+        counter += 1;
+    }
+    typing = ``;
+    lastWord = `whoAmI`;
+  }
+  if (typing === `where are we`) {
+    state = `whereWe`
+    currentWord = `whereAreWe`
+    if (currentWord != lastWord){
+        counter += 1;
+    }
+    typing = ``;
+    lastWord = `whereAreWe`;
+  }
+  if (typing === `what is this`) {
+    state = `whatThis`
+    currentWord = `whatIsThis`
+    if (currentWord != lastWord){
+        counter += 1;
+    }
+    typing = ``;
+    lastWord = `whatIsThis`;
+  }
+  counterCheck();
+  print(state);
 }
 
 function ending() {
-  background(50,200,0);
+  background(50, 200, 0);
   textSize(100);
-  text(`wahoo!`, width/2,height/2)
+  text(`wahoo!`, width / 2, height / 2)
   acousticSong();
 }
 
-function endingTwo(){
-  background(250,200,0);
+function endingTwo() {
+  background(250, 200, 0);
   textSize(100);
-  text(`theo!`, width/2,height/2)
+  text(`theo!`, width / 2, height / 2)
   acousticSong();
 }
 
-function endingThree(){
-  background(100,0,150);
+function endingThree() {
+  background(100, 0, 150);
   textSize(100);
-  text(`donkey kong!`,width/2,height/2)
+  text(`donkey kong!`, width / 2, height / 2)
   donkeySong();
   image(dkOne, 400, 30);
   image(dkTwo, 200, height);
@@ -205,24 +271,29 @@ function endingThree(){
 }
 
 function start() {
-  background(0,50,200);
-  text(`click 2 start`,width/2,height/2)
+  push();
+  background(0, 50, 200);
+  textAlign(CENTER);
+  textFont(myFont);
+  textSize(40);
+  text(`click 2 start`, width / 2, height / 2)
+  pop();
 }
 
 function acousticSong() {
-  if(!doAgain.isPlaying()){
+  if (!doAgain.isPlaying()) {
     doAgain.loop();
-  if(state != `ending`){
-    doAgain.stop();
-  }
+    if (state != `ending`) {
+      doAgain.stop();
+    }
   }
 }
 
-function donkeySong(){
-  if(!dkIce.isPlaying()){
+function donkeySong() {
+  if (!dkIce.isPlaying()) {
     dkIce.loop();
   }
-  if(state != `endingThree`){
+  if (state != `endingThree`) {
     dkIce.stop();
   }
 }
@@ -235,8 +306,9 @@ function mousePressed() {
 }
 
 function fullReset() {
-  if (keyCode === DOWN_ARROW){
-    state = `start`
+  if (keyCode === DOWN_ARROW) {
+    state = `simulation`
+    simulation();
     typing = ``;
     doAgain.stop();
     dkIce.stop();
@@ -244,9 +316,75 @@ function fullReset() {
 }
 
 
+
 function textReset() {
-  if (textPosition.x>width || textPosition.y>height){
+  if (textPosition.x > width || textPosition.y > height) {
     textPosition.x = 0
-    textPosition.y = 0
+    textPosition.y = 0}
+  }
+
+function whoAreYou() {
+    push();
+    background(0, 50, 200);
+    textAlign(CENTER);
+    textFont(myFont);
+    textSize(40);
+    text(`i'm me. who are you?`, width / 2, height / 2)
+    pop();
+    push();
+    textSize(20);
+    text(`(press the down arrow)`, width/2, height - height/3);
+    pop();
+    counterCheck();
+  }
+
+function whoAmI() {
+    push();
+    background(0, 50, 200);
+    textAlign(CENTER);
+    textFont(myFont);
+    textSize(40);
+    text(`that's a silly question, you should know that.`, width / 2, height / 2)
+    pop();
+    push();
+    textSize(20);
+    text(`(press the down arrow)`, width/2, height - height/3);
+    pop();
+  }
+
+function whereAreWe() {
+    push();
+    background(0, 50, 200);
+    textAlign(CENTER);
+    textFont(myFont);
+    textSize(40);
+    text(`i'm not sure. i was hoping you could tell me.`, width / 2, height / 2)
+    pop();
+    push();
+    textSize(20);
+    text(`(press the down arrow)`, width/2, height - height/3);
+    pop();
+  }
+
+function whatIsThis() {
+    push();
+    background(0, 50, 200);
+    textAlign(CENTER);
+    textFont(myFont);
+    textSize(40);
+    text(`i don't know. i'm kind of scared. i don't know how long i've been here.`, width / 2, height / 2)
+    pop();
+    push();
+    textSize(20);
+    text(`(press the down arrow)`, width/2, height - height/3);
+    pop();
+  }
+
+function counterCheck(){
+  stroke(0);
+  text(counter,width/2,height - height/5);
+  text(`of 12`, width/2, height - height/5 + 20)
+  if (counter === 4) {
+    state = `endingThree`;
   }
 }
