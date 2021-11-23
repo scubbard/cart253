@@ -8,21 +8,26 @@ let myFont;
 let doAgain;
 let dkIce;
 
+//donkey kong images
 let dkOne;
 let dkTwo;
 let dkThree;
 let dkFour;
 let dkFive;
 
+//creating basic type variable and setting 'click to begin' state
 let typing = ``;
 let state = `start`;
 
+//creating score/counter variable
 let counter = 0;
 let counterText = ``;
 
+//creating variables to use to check if a word has been typed already
 let lastWord = ``;
 let currentWord = ``;
 
+//variables for colour randomization
 let r = 100;
 let g = 0;
 let b = 0;
@@ -33,7 +38,7 @@ let textPosition = {
   vx: 2,
   vy: 2,
 };
-
+//background rectangles
 let rectOne = {
   size: 800
 };
@@ -50,6 +55,7 @@ let rectFive = {
   size: 100
 };
 
+//loading assets
 function preload() {
   myFont = loadFont(`assets/HappyTime.otf`);
   doAgain = loadSound(`assets/sounds/doAgain.mp3`);
@@ -65,7 +71,7 @@ function preload() {
 
 
 /**
-Description of setup
+canvas is created
 */
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -73,7 +79,7 @@ function setup() {
 
 
 /**
-Description of draw()
+checks state of simulation and calls wordTyped(), which checks for a flagged word
 */
 function draw() {
   if (state === `start`) {
@@ -107,6 +113,9 @@ function draw() {
   wordTyped();
 }
 
+/*
+simulation state - the basic state of the game.
+*/
 function simulation() {
   background(200, 50, 50);
   myRect();
@@ -264,7 +273,7 @@ function endingThree() {
   text(`donkey kong!`, width / 2, height / 2)
   donkeySong();
   image(dkOne, 400, 30);
-  image(dkTwo, 200, height);
+  image(dkTwo, 200, 200);
   image(dkThree, 600, 350);
   image(dkFour, 800, 200);
   image(dkFive, 100, 100);
@@ -386,5 +395,6 @@ function counterCheck(){
   text(`of 12`, width/2, height - height/5 + 20)
   if (counter === 4) {
     state = `endingThree`;
+    counter = 0;
   }
 }
