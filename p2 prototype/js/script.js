@@ -108,17 +108,17 @@ function myRect() {
   pop();
   push();
     noStroke();
-    fill(200,g,20)
+    fill(r,10,10)
     rect(100, 100, width - 100,height - 100,)
   pop();
   push();
     noStroke();
-    fill(100,0,b);
+    fill(r,50,70);
     rect(200, 200, width - 200,height - 200,)
   pop();
   push();
     noStroke();
-    fill(r,g,40);
+    fill(r,50,40);
     rect(300, 300, width - 300,height - 300,)
   pop();
   push();
@@ -239,7 +239,7 @@ function fullReset() {
     state = `start`
     typing = ``;
     doAgain.stop();
-    donkeySong.stop();
+    dkIce.stop();
   }
 }
 
