@@ -37,6 +37,12 @@ let counterText = ``;
 let lastWord = ``;
 let currentWord = ``;
 
+let dialog = ``;
+let dialogOne;
+let dialogTwo;
+
+let lastState = ``;
+
 //variables for colour randomization
 let r = 100;
 let g = 0;
@@ -105,8 +111,8 @@ function draw() {
   if (state === `start`) {
     start();
   }
-  if (state === `simulation`) {
-    simulation();
+  if (state === `chapterOne`) {
+    chapterOne();
   }
   if (state === `ending`) {
     ending();
@@ -136,14 +142,13 @@ function draw() {
 /*
 simulation state - the basic state of the game.
 */
-function simulation() {
+function chapterOne() {
   background(200, 50, 50);
   myRect();
   words();
-  floatyWords();
-  floatyWordsTwo();
   staticText();
-
+  chapterOneText();
+  lastState = `chapterOne`;
 }
 
 function myRect() {
@@ -184,25 +189,11 @@ function words() {
   text(typing, width / 2, height / 2);
 }
 
-function floatyWords() {
-  textSize(30);
-  text(`testing testing...check..1..2....`, textPosition.x, textPosition.y)
-  textPosition.x = textPosition.x + textPosition.vx
-  textPosition.y = textPosition.y + textPosition.vy
-  textReset();
-}
-
-function floatyWordsTwo() {
-  textSize(30);
-  text(`i hate capital letters`, textPosition.x + 10, textPosition.y / 2)
-  textPosition.x = textPosition.x + textPosition.vx
-  textPosition.y = textPosition.y + textPosition.vy
-  textReset();
-}
 
 function staticText() {
   textSize(15);
   text(`press down arrow to reset`, width / 2, 800);
+
 }
 
 function keyTyped() {
@@ -335,27 +326,76 @@ function donkeySong() {
 
 function mousePressed() {
   if (state === `start`) {
-    state = `simulation`;
+    state = `chapterOne`;
   }
 }
 
 function fullReset() {
   if (keyCode === DOWN_ARROW) {
-    state = `simulation`
-    simulation();
+    state = `start`
     typing = ``;
     doAgain.stop();
     dkIce.stop();
   }
 }
 
+function lastStateCheck(){
+  if(lastState = `chapterOne`){
+    chapterOne();
+  }
+}
 
+function chapterOneText() {
+  push();
+  stroke(0);
+  fill(200,150,0);
+  textSize(30);
+  text(`hello? you there?`,width/2, height/2);
+  pop();
+  chapterOneCheck();
+};
+
+function chapterOneCheck() {
+  if (dialog = `dialogOne` && typing === `yes` || lastWord === `yes` &&){
+    text(`thank god. you haven't heard, have you? take a look at this.`);
+    newspaper();
+    lastWord = `yes`
+    typing = ``;
+  } else if (typing === `what happened?` || lastWord === `what happened?`){
+    endSale();
+    lastWord = `what happened?`
+    typing = ``;
+  }
+}
 
 function textReset() {
   if (textPosition.x > width || textPosition.y > height) {
     textPosition.x = 0
     textPosition.y = 0}
   }
+
+function newspaper(){
+  push();
+  imageMode(CENTER);
+  image(newsSprite, width/2,height/2);
+  stroke(0);
+  fill(220,170,0);
+  textSize(30);
+  text(`take a look at this...`,width/2, height/5);
+  pop();
+}
+
+function endSale(){
+  push();
+  imageMode(CENTER);
+  image(endOfWorldSale, width/2,height/2);
+  stroke(0);
+  fill(200,150,0);
+  textSize(30);
+  text(`i don't know. i found this. i can't remember any meteor, can you?`,width/2, height/5);
+  pop();
+}
+
 
 function whoAreYou() {
     push();
