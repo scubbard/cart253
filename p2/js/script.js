@@ -15,6 +15,16 @@ let dkThree;
 let dkFour;
 let dkFive;
 
+//story images
+let closer;
+let calendar;
+let comingToFindYou;
+let endOfWorldSale;
+let id;
+let newsSprite;
+let theEnd;
+let theStars;
+
 //creating basic type variable and setting 'click to begin' state
 let typing = ``;
 let state = `start`;
@@ -66,6 +76,16 @@ function preload() {
   dkThree = loadImage(`assets/images/dk3.png`);
   dkFour = loadImage(`assets/images/dk4.png`);
   dkFive = loadImage(`assets/images/dk5.jpg`);
+
+  closer = loadImage(`assets/images/closer.png`);
+  calendar = loadImage(`assets/images/calendar.png`);
+  comingToFindYou = loadImage(`assets/images/coming to find you copy.png`);
+  endOfWorldSale = loadImage(`assets/images/endofworldSale.png`);
+  id = loadImage(`assets/images/id copy.png`);
+  newsSprite = loadImage(`assets/images/newsSprite.png`);
+  theEnd = loadImage(`assets/images/the end copy.png`);
+  theStars = loadImage(`assets/images/the stars.png`);
+
 }
 
 
@@ -254,9 +274,13 @@ function wordTyped() {
 }
 
 function ending() {
-  background(50, 200, 0);
+  background(20, 0, 50);
+  push();
+  imageMode(CENTER);
+  image(theEnd,width/2,height/2);
+  pop();
   textSize(100);
-  text(`wahoo!`, width / 2, height / 2)
+  //text(`wahoo!`, width / 2, height / 2)
   acousticSong();
 }
 
@@ -285,7 +309,8 @@ function start() {
   textAlign(CENTER);
   textFont(myFont);
   textSize(40);
-  text(`click 2 start`, width / 2, height / 2)
+  text(`chapter one.`, width/2, height/2 - 60);
+  text(`click 2 start`, width / 2, height / 2);
   pop();
 }
 
@@ -390,11 +415,15 @@ function whatIsThis() {
   }
 
 function counterCheck(){
+  push();
   stroke(0);
+  fill(200,150,0);
+  textSize(20);
   text(counter,width/2,height - height/5);
-  text(`of 12`, width/2, height - height/5 + 20)
-  if (counter === 4) {
-    state = `endingThree`;
+  text(`of 5`, width/2, height - height/5 + 20)
+  pop();
+  if (counter === 5) {
+    state = `ending`;
     counter = 0;
   }
 }
