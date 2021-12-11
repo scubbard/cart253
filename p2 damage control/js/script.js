@@ -1,5 +1,5 @@
 /**
-what type of song is this? prototype
+where'd everybody go? - an exercise in humility
 code by georgie
 */
 
@@ -16,14 +16,21 @@ let dkFour;
 let dkFive;
 
 //story images
-let closer;
-let calendar;
-let comingToFindYou;
-let endOfWorldSale;
+
+let newspaper;
+let endsale;
 let id;
-let newsSprite;
+let allTheStars;
+let whereTheyGo;
 let theEnd;
-let theStars;
+
+
+let happenedCheck;
+let idCheck;
+let starsCheck;
+let closerCheck;
+
+
 
 //creating basic type variable and setting 'click to begin' state
 let typing = ``;
@@ -37,14 +44,6 @@ let counterText = ``;
 let lastWord = ``;
 let currentWord = ``;
 
-let dialog = ``;
-let dialogOne;
-let dialogTwo;
-
-let lastState = ``;
-
-let showpaper = false
-
 //variables for colour randomization
 let r = 100;
 let g = 0;
@@ -53,8 +52,15 @@ let b = 0;
 let textPosition = {
   x: 30,
   y: 30,
-  vx: 2,
-  vy: 2,
+  vx: 0.5,
+  vy: 0.5,
+};
+
+let whatHappenedText = {
+  x: 30,
+  y: 30,
+  vx: 0.5,
+  vy: 0.5,
 };
 //background rectangles
 let rectOne = {
@@ -85,15 +91,12 @@ function preload() {
   dkFour = loadImage(`assets/images/dk4.png`);
   dkFive = loadImage(`assets/images/dk5.jpg`);
 
-  closer = loadImage(`assets/images/closer.png`);
-  calendar = loadImage(`assets/images/calendar.png`);
-  comingToFindYou = loadImage(`assets/images/coming to find you copy.png`);
-  endOfWorldSale = loadImage(`assets/images/endofworldSale.png`);
+  newspaper = loadImage(`assets/images/newsSprite.png`);
+  endsale = loadImage(`assets/images/endofworldSale.png`);
   id = loadImage(`assets/images/id copy.png`);
-  newsSprite = loadImage(`assets/images/newsSprite.png`);
+  allTheStars = loadImage(`assets/images/the stars.png`);
+  whereTheyGo = loadImage(`assets/images/closer.png`);
   theEnd = loadImage(`assets/images/the end copy.png`);
-  theStars = loadImage(`assets/images/the stars.png`);
-
 }
 
 
@@ -113,8 +116,8 @@ function draw() {
   if (state === `start`) {
     start();
   }
-  if (state === `chapterOne`) {
-    chapterOne();
+  if (state === `simulation`) {
+    simulation();
   }
   if (state === `ending`) {
     ending();
@@ -125,8 +128,8 @@ function draw() {
   if (state === `endingThree`) {
     endingThree();
   }
-  if (state === `whoYou`) {
-    whoAreYou();
+  if (state === `whatHappened`) {
+    whatHappened();
   }
   if (state === `whoI`) {
     whoAmI();
@@ -144,13 +147,14 @@ function draw() {
 /*
 simulation state - the basic state of the game.
 */
-function chapterOne() {
+function simulation() {
   background(200, 50, 50);
   myRect();
   words();
+  floatyWords();
+  floatyWordsTwo();
   staticText();
-  chapterOneText();
-  lastState = `chapterOne`;
+
 }
 
 function myRect() {
@@ -192,10 +196,37 @@ function words() {
 }
 
 
+function floatyWords() {
+  textSize(30);
+  text(`things to discover....`, textPosition.x, textPosition.y)
+  push();
+  textAlign(RIGHT);
+  textSize(15);
+  text(`what happened?`, whatHappenedText.x, whatHappenedText.y + 20)
+  pop();
+  move();
+  textReset();
+}
+
+function move(){
+  textPosition.x = textPosition.x + textPosition.vx;
+  textPosition.y = textPosition.y + textPosition.vy;
+  whatHappenedText.x = whatHappenedText.x  + textPosition.vx;
+  whatHappenedText.y = whatHappenedText.y  + textPosition.vy;
+}
+
+function floatyWordsTwo() {
+  textSize(30);
+  text(``, textPosition.x + 10, textPosition.y / 2)
+  textPosition.x = textPosition.x + textPosition.vx
+  textPosition.y = textPosition.y + textPosition.vy
+  textReset();
+}
+
+
 function staticText() {
   textSize(15);
   text(`press down arrow to reset`, width / 2, 800);
-
 }
 
 function keyTyped() {
@@ -226,20 +257,20 @@ function wordTyped() {
   if (typing === `donkey kong`) {
     state = `endingThree`
   }
-  if (typing === `who are you`) {
-    state = `whoYou`;
-    currentWord = `whoAreYou`
-    if (currentWord != lastWord) {
-      counter += 1;
+  if (typing === `what happened?`) {
+    state = `whatHappened`;
+    currentWord = `whatHappened`
+    if (currentWord != lastWord){
+        counter += 1;
     }
     typing = ``;
-    lastWord = `whoAreYou`;
+    lastWord = `whatHappened`;
   }
   if (typing === `who am i`) {
     state = `whoI`
     currentWord = `whoAmI`
-    if (currentWord != lastWord) {
-      counter += 1;
+    if (currentWord != lastWord){
+        counter += 1;
     }
     typing = ``;
     lastWord = `whoAmI`;
@@ -247,8 +278,8 @@ function wordTyped() {
   if (typing === `where are we`) {
     state = `whereWe`
     currentWord = `whereAreWe`
-    if (currentWord != lastWord) {
-      counter += 1;
+    if (currentWord != lastWord){
+        counter += 1;
     }
     typing = ``;
     lastWord = `whereAreWe`;
@@ -256,8 +287,8 @@ function wordTyped() {
   if (typing === `what is this`) {
     state = `whatThis`
     currentWord = `whatIsThis`
-    if (currentWord != lastWord) {
-      counter += 1;
+    if (currentWord != lastWord){
+        counter += 1;
     }
     typing = ``;
     lastWord = `whatIsThis`;
@@ -267,13 +298,9 @@ function wordTyped() {
 }
 
 function ending() {
-  background(20, 0, 50);
-  push();
-  imageMode(CENTER);
-  image(theEnd, width / 2, height / 2);
-  pop();
+  background(50, 200, 0);
   textSize(100);
-  //text(`wahoo!`, width / 2, height / 2)
+  text(`wahoo!`, width / 2, height / 2)
   acousticSong();
 }
 
@@ -302,8 +329,7 @@ function start() {
   textAlign(CENTER);
   textFont(myFont);
   textSize(40);
-  text(`chapter one.`, width / 2, height / 2 - 60);
-  text(`click 2 start`, width / 2, height / 2);
+  text(`click 2 start`, width / 2, height / 2)
   pop();
 }
 
@@ -328,164 +354,108 @@ function donkeySong() {
 
 function mousePressed() {
   if (state === `start`) {
-    state = `chapterOne`;
+    state = `simulation`;
   }
 }
 
 function fullReset() {
   if (keyCode === DOWN_ARROW) {
-    state = `start`
+    state = `simulation`
+    simulation();
     typing = ``;
     doAgain.stop();
     dkIce.stop();
-    showpaper = false;
-    lastWord = ``;
   }
 }
 
-function lastStateCheck() {
-  if (lastState = `chapterOne`) {
-    chapterOne();
-  }
-}
-
-function chapterOneText() {
-  push();
-  stroke(0);
-  fill(200, 150, 0);
-  textSize(30);
-  if (lastWord != `yes`){
-  text(`hello? you there?`, width / 2, height / 2);
-  }
-  pop();
-  chapterOneCheck();
-};
-
-function chapterOneCheck() {
-  if (dialog = `dialogOne` && typing === `yes` || lastWord === `yes`) {
-    text(`thank god. you haven't heard, have you? take a look at this.`);
-    newspaper();
-    lastWord = `yes`
-    showpaper = true;
-  } else if (typing === `what happened?` || lastWord === `what happened?`) {
-    endSale();
-    lastWord = `what happened?`
+function lineCheck(){
+  if (happenedCheck === true){
+    line()
   }
 }
 
 function textReset() {
   if (textPosition.x > width || textPosition.y > height) {
     textPosition.x = 0
-    textPosition.y = 0
+    textPosition.y = 0}
   }
-}
 
-
-
-function newspaper() {
-  push();
-  typing = ``
-  if (showpaper = true) {
-    imageMode(CENTER);
-    scale(0.75, 0.75);
-    image(newsSprite, width - width / 3, height);
+function whatHappened() {
+    push();
+    background(0, 50, 200);
+    textAlign(CENTER);
+    textFont(myFont);
+    textSize(40);
+    text(`i don't know. i can't remember any meteors, can you?`, width / 2, height / 2)
+    pop();
+    push();
+    textSize(20);
+    text(`(press the down arrow)`, width/2, height - height/3);
+    pop();
+    whatHappenedImage();
+    counterCheck();
+    happenedCheck = true;
   }
-  pop();
-  push();
-  stroke(0);
-  fill(220, 170, 0);
-  textSize(30);
-  text(`take a look at this...`, width / 2, height / 5);
-  pop();
-  nextText();
-}
 
-function endSale() {
-  push();
+function whatHappenedImage(){
   imageMode(CENTER);
-  image(endOfWorldSale, width / 2, height / 2);
-  stroke(0);
-  fill(200, 150, 0);
-  textSize(30);
-  text(`i don't know. i found this. i can't remember any meteor, can you?`, width / 2, height / 5);
+  push();
+  scale(0.65,0.65);
+  image(newspaper,width - width/2,height/3);
   pop();
+  image(endsale, width - width/4, height/4)
+
 }
 
-function nextText() {
-  text(`press down arrow to continue...`, width / 2, height - height / 7);
-  if (keyCode === RIGHT_ARROW) {
-    lastWord = ``
-    showpaper = false;
-  };
-}
-
-function whoAreYou() {
-  push();
-  background(0, 50, 200);
-  textAlign(CENTER);
-  textFont(myFont);
-  textSize(40);
-  text(`i'm me. who are you?`, width / 2, height / 2)
-  pop();
-  push();
-  textSize(20);
-  text(`(press the down arrow)`, width / 2, height - height / 3);
-  pop();
-  counterCheck();
-}
 
 function whoAmI() {
-  push();
-  background(0, 50, 200);
-  textAlign(CENTER);
-  textFont(myFont);
-  textSize(40);
-  text(`that's a silly question, you should know that.`, width / 2, height / 2)
-  pop();
-  push();
-  textSize(20);
-  text(`(press the down arrow)`, width / 2, height - height / 3);
-  pop();
-}
+    push();
+    background(0, 50, 200);
+    textAlign(CENTER);
+    textFont(myFont);
+    textSize(40);
+    text(`that's a silly question, you should know that.`, width / 2, height / 2)
+    pop();
+    push();
+    textSize(20);
+    text(`(press the down arrow)`, width/2, height - height/3);
+    pop();
+  }
 
 function whereAreWe() {
-  push();
-  background(0, 50, 200);
-  textAlign(CENTER);
-  textFont(myFont);
-  textSize(40);
-  text(`i'm not sure. i was hoping you could tell me.`, width / 2, height / 2)
-  pop();
-  push();
-  textSize(20);
-  text(`(press the down arrow)`, width / 2, height - height / 3);
-  pop();
-}
+    push();
+    background(0, 50, 200);
+    textAlign(CENTER);
+    textFont(myFont);
+    textSize(40);
+    text(`i'm not sure. i was hoping you could tell me.`, width / 2, height / 2)
+    pop();
+    push();
+    textSize(20);
+    text(`(press the down arrow)`, width/2, height - height/3);
+    pop();
+  }
 
 function whatIsThis() {
-  push();
-  background(0, 50, 200);
-  textAlign(CENTER);
-  textFont(myFont);
-  textSize(40);
-  text(`i don't know. i'm kind of scared. i don't know how long i've been here.`, width / 2, height / 2)
-  pop();
-  push();
-  textSize(20);
-  text(`(press the down arrow)`, width / 2, height - height / 3);
-  pop();
-}
+    push();
+    background(0, 50, 200);
+    textAlign(CENTER);
+    textFont(myFont);
+    textSize(40);
+    text(`i don't know. i'm kind of scared. i don't know how long i've been here.`, width / 2, height / 2)
+    pop();
+    push();
+    textSize(20);
+    text(`(press the down arrow)`, width/2, height - height/3);
+    pop();
+  }
 
-function counterCheck() {
-  push();
+function counterCheck(){
   stroke(0);
-  fill(200, 150, 0);
-  textSize(20);
-  text(counter, width / 2, height - height / 5);
-  text(`of 5`, width / 2, height - height / 5 + 20)
-  pop();
-  if (counter === 5) {
-    state = `ending`;
+  text(counter,width/2,height - height/5);
+  text(`of 5`, width/2, height - height/5 + 20)
+  if (counter === 4) {
+    state = `endingThree`;
     counter = 0;
   }
 }
