@@ -8,6 +8,11 @@ let myFont;
 let doAgain;
 let dkIce;
 
+let briAndSue;
+let broadest;
+let castleWallWaltz;
+let pontiac2;
+
 //donkey kong images
 let dkOne;
 let dkTwo;
@@ -81,9 +86,14 @@ let rectFive = {
 
 //loading assets
 function preload() {
-  myFont = loadFont(`assets/HappyTime.otf`);
+  myFont = loadFont(`assets/fonts/HappyTime copy.otf`);
   doAgain = loadSound(`assets/sounds/doAgain.mp3`);
   dkIce = loadSound(`assets/sounds/dk ice.mp3`);
+
+  briAndSue = loadSound(`assets/sounds/bri and sue 2.mp3`);
+  broadest = loadSound(`assets/sounds/broadest.mp3`)
+  castleWallWaltz = loadSound(`assets/sounds/castle wall waltz.mp3`)
+  pontiac2 = loadSound(`assets/sounds/pontiac2.mp3`)
 
   dkOne = loadImage(`assets/images/dk1.png`);
   dkTwo = loadImage(`assets/images/dk2.png`);
@@ -204,14 +214,14 @@ function floatyWords() {
   textReset();
 }
 
-function gonnaDieCheck(){
-  if (happenedCheck === true && idCheck === true && starsCheck === true && closerCheck === true){
+function gonnaDieCheck() {
+  if (happenedCheck === true && idCheck === true && starsCheck === true && closerCheck === true) {
     push();
     textSize(20);
     fill(200);
     noStroke();
     textAlign(CENTER)
-    text(`are we gonna die?`,width/2,height/2);
+    text(`are we gonna die?`, width / 2, height / 2);
     pop();
   }
 }
@@ -351,11 +361,46 @@ function donkeySong() {
   if (!dkIce.isPlaying()) {
     dkIce.loop();
   }
-  if (state != `endingThree`) {
+  if (state != `who are you?`) {
     dkIce.stop();
   }
 }
 
+function briAndSueSong() {
+  if (!briAndSue.isPlaying()) {
+    briAndSue.loop();
+  }
+  if (state != `where is everybody?`) {
+    briAndSue.stop();
+  }
+}
+
+function broadestSong() {
+  if (!broadest.isPlaying()) {
+    broadest.loop();
+  }
+  if (state != `whatHappened`) {
+    broadest.stop();
+  }
+}
+
+function castleWallWaltzSong() {
+  if (!castleWallWaltz.isPlaying()) {
+    castleWallWaltz.loop();
+  }
+  if (state != `are we gonna die?`) {
+    castleWallWaltz.stop();
+  }
+}
+
+function pontiacSong() {
+  if (!pontiac2.isPlaying()) {
+    pontiac2.loop();
+  }
+  if (state != `where are you?`) {
+    pontiac2.stop();
+  }
+}
 
 function mousePressed() {
   if (state === `start`) {
@@ -370,6 +415,11 @@ function fullReset() {
     typing = ``;
     doAgain.stop();
     dkIce.stop();
+    pontiac2.stop();
+    briAndSue.stop();
+    castleWallWaltz.stop();
+    broadest.stop();
+
   }
 }
 
@@ -394,6 +444,7 @@ function whatHappened() {
   pop();
   whatHappenedImage();
   counterCheck();
+  broadestSong();
   happenedCheck = true;
 }
 
@@ -422,6 +473,7 @@ function whoAreYou() {
   text(`(press the down arrow)`, width / 2, height - height / 3);
   pop();
   whoAreYouImage();
+  donkeySong();
   idCheck = true;
 }
 
@@ -449,6 +501,7 @@ function whereIsEverybody() {
   text(`(press the down arrow)`, width / 2, height - height / 15);
   pop();
   whereIsEverybodyImage();
+  briAndSueSong();
   starsCheck = true;
 }
 
@@ -473,6 +526,7 @@ function whereAreYou() {
   pop();
   whereAreYouImage();
   closerCheck = true;
+  pontiacSong();
 }
 
 function whereAreYouImage() {
@@ -495,14 +549,15 @@ function areWeGonnaDie() {
   textSize(20);
   text(`(press the down arrow)`, width / 2, height - height / 3);
   pop();
+  castleWallWaltzSong();
 }
 
 function counterCheck() {
   stroke(0);
   text(counter, width / 2, height - height / 5);
   text(`of 5`, width / 2, height - height / 5 + 20)
-  if (counter === 5) {
+  if (counter === 5 && state === `simulation`) {
     state = `ending`;
-    //counter = 0;
+    counter = 5;
   }
 }
