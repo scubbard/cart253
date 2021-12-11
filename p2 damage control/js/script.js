@@ -1,6 +1,6 @@
 /**
 where'd everybody go? - an exercise in humility
-code by georgie
+code and art by georgie
 */
 
 "use strict";
