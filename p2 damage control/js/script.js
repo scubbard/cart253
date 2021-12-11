@@ -131,8 +131,8 @@ function draw() {
   if (state === `whatHappened`) {
     whatHappened();
   }
-  if (state === `whoI`) {
-    whoAmI();
+  if (state === `who are you?`) {
+    whoAreYou();
   }
   if (state === `whereWe`) {
     whereAreWe();
@@ -202,7 +202,8 @@ function floatyWords() {
   push();
   textAlign(RIGHT);
   textSize(15);
-  text(`what happened?`, whatHappenedText.x, whatHappenedText.y + 20)
+  text(`what happened?`, textPosition.x, textPosition.y + 20);
+  text(`who are you?`, textPosition.x, textPosition.y + 40)
   pop();
   move();
   textReset();
@@ -211,8 +212,6 @@ function floatyWords() {
 function move(){
   textPosition.x = textPosition.x + textPosition.vx;
   textPosition.y = textPosition.y + textPosition.vy;
-  whatHappenedText.x = whatHappenedText.x  + textPosition.vx;
-  whatHappenedText.y = whatHappenedText.y  + textPosition.vy;
 }
 
 function floatyWordsTwo() {
@@ -266,14 +265,14 @@ function wordTyped() {
     typing = ``;
     lastWord = `whatHappened`;
   }
-  if (typing === `who am i`) {
-    state = `whoI`
-    currentWord = `whoAmI`
+  if (typing === `who are you?`) {
+    state = `who are you?`
+    currentWord = `who are you?`
     if (currentWord != lastWord){
         counter += 1;
     }
     typing = ``;
-    lastWord = `whoAmI`;
+    lastWord = `who are you?`;
   }
   if (typing === `where are we`) {
     state = `whereWe`
@@ -368,12 +367,6 @@ function fullReset() {
   }
 }
 
-function lineCheck(){
-  if (happenedCheck === true){
-    line()
-  }
-}
-
 function textReset() {
   if (textPosition.x > width || textPosition.y > height) {
     textPosition.x = 0
@@ -408,19 +401,28 @@ function whatHappenedImage(){
 }
 
 
-function whoAmI() {
+function whoAreYou() {
     push();
     background(0, 50, 200);
     textAlign(CENTER);
     textFont(myFont);
     textSize(40);
-    text(`that's a silly question, you should know that.`, width / 2, height / 2)
+    text(`i actually can't remember. i found this, though.
+    guess this is me. can't remember what it was like, there.`, width / 2, height / 2)
     pop();
     push();
     textSize(20);
     text(`(press the down arrow)`, width/2, height - height/3);
     pop();
+    whoAreYouImage();
   }
+
+function whoAreYouImage(){
+  imageMode(CENTER);
+  push();
+  image(id,width/2,height/3);
+  pop();
+}
 
 function whereAreWe() {
     push();
